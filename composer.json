@@ -1,0 +1,14 @@
+{
+    "name": "laratasks/laratasks",
+    "description": "Laravel queues on steroid",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dan Charousek",
+            "email": "dan@charousek.dev"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
