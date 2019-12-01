@@ -14,29 +14,42 @@ use Laratasks\Laratasks\Exceptions\TaskNotFoundException;
  *
  * @package Laratasks\Laratasks
  *
- * @property string taskType
- * @property int attemptsUsed
- * @property int maxAttempts
- * @property int remainingAttempts
- * @property string status
- * @property bool succeed
- * @property string parentStrategy
- * @property bool allParentsSucceed
- * @property bool allParentsFailed
- * @property bool someParentsFailed
- * @property bool someParentsSucceed
- * @property Task[] parents
+ * Database columns
  *
- * @method static Task query -
- * @method Task ready
- * @method Task prioritized
- * @method Task created
- * @method Task scheduled
- * @method Task dispatched
- * @method Task succeed
- * @method Task failed
- * @method get
+ * @property int $attempts_used
+ * @property int $max_attempts
+ * @property string $task_type
+ * @property string $parent_strategy
+ * @property int $id
+ *
+ * Laravel eloquent relations
+ * @property Task[] $parents
+ *
+ * Laravel accessors
+ *
+ * @property string $taskType
+ * @property int $attemptsUsed
+ * @property int $maxAttempts
+ * @property int $remainingAttempts
+ * @property string $status
+ * @property bool $succeed
+ * @property string $parentStrategy
+ * @property bool $allParentsSucceed
+ * @property bool $allParentsFailed
+ * @property bool $someParentsFailed
+ * @property bool $someParentsSucceed
+ *
+ * @method static Task query()
+ * @method Task ready()
+ * @method Task prioritized()
+ * @method Task created()
+ * @method Task scheduled()
+ * @method Task dispatched()
+ * @method Task succeed()
+ * @method Task failed()
+ * @method get()
  * @method increment(string $columnName)
+ * @method static Task create(array $data)
  */
 class Task extends Model
 {

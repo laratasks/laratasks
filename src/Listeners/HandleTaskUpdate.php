@@ -29,7 +29,7 @@ class HandleTaskUpdate
         TaskLog::debug('Task has been updated', $task);
 
         if ($task->taskType === null) {
-            Log::debug('Task is empty so it will not be processed', $task);
+            TaskLog::debug('Task is empty so it will not be processed', $task);
 
             return;
         }

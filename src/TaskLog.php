@@ -4,6 +4,11 @@ namespace Laratasks\Laratasks;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class TaskLog
+ * @package Laratasks\Laratasks
+ * @method static TaskLog create(array $data)
+ */
 class TaskLog extends Model
 {
     /**
