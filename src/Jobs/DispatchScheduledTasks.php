@@ -20,9 +20,9 @@ class DispatchScheduledTasks implements ShouldQueue
     use InteractsWithQueue;
 
     /**
-     * @return void
+     * @return Task[]
      */
-    public function handle()
+    protected function getTasks(): array
     {
         /** @var Task[] $scheduledTasks */
         $scheduledTasks = Task::query()
@@ -30,7 +30,15 @@ class DispatchScheduledTasks implements ShouldQueue
             ->prioritized()
             ->get();
 
-        foreach ($scheduledTasks as $task) {
+        return $scheduledTasks;
+    }
+
+    /**
+     * @return void
+     */
+    final public function handle()
+    {
+        foreach ($this->getTasks() as $task) {
             dispatch(new ExecuteTask(
                 ExecutableTask::create($task->taskType, $task)
             ));

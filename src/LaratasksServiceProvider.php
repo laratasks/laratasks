@@ -27,22 +27,23 @@ class LaratasksServiceProvider extends ServiceProvider
     protected function offerConfiguration()
     {
         $this->publishes([
-            __DIR__.'/../config/laratasks.php' => config_path('laratasks.php')
+            __DIR__ . '/../config/laratasks.php' => config_path('laratasks.php')
         ], 'config');
     }
 
     protected function offerMigrations()
     {
         $this->publishes([
-            __DIR__.'/../database/migrations/' => database_path('migrations')
+            __DIR__ . '/../database/migrations/' => database_path('migrations')
         ], 'migrations');
     }
 
     protected function offerDispatcher()
     {
         $this->publishes([
-            __DIR__.'/Jobs/DispatchScheduledTasks.php' => app_path('Jobs/DispatchScheduledTasks.php')
-        ], 'migrations');
+            __DIR__ . '/../published/Jobs/DispatchScheduledTasks.php' => app_path('Jobs/DispatchScheduledTasks.php'),
+            __DIR__ . '/../published/Console/Commands/TickCommand.php' => app_path('Console/Commands/LaratasksTickCommand.php')
+        ], 'dispatcher');
     }
 
     protected function loadMigrations()

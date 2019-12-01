@@ -18,5 +18,12 @@
     "psr-4": {
       "Laratasks\\Laratasks\\": "src/"
     }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Laratasks\\Laratasks\\LaratasksServiceProvider"
+      ]
+    }
   }
 }
