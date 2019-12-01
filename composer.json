@@ -1,14 +1,22 @@
 {
-    "name": "laratasks/laratasks",
-    "description": "Laravel queues on steroid",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Dan Charousek",
-            "email": "dan@charousek.dev"
-        }
-    ],
-    "minimum-stability": "stable",
-    "require": {}
+  "name": "laratasks/laratasks",
+  "description": "Laravel queues on steroids",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dan Charousek",
+      "email": "dan@charousek.dev"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "laravel/framework": "^6.6",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Laratasks\\Laratasks\\": "src/"
+    }
+  }
 }
