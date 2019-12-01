@@ -41,8 +41,13 @@ class LaratasksServiceProvider extends ServiceProvider
     protected function offerDispatcher()
     {
         $this->publishes([
-            __DIR__ . '/../published/Jobs/DispatchScheduledTasks.php' => app_path('Jobs/DispatchScheduledTasks.php'),
-            __DIR__ . '/../published/Console/Commands/TickCommand.php' => app_path('Console/Commands/LaratasksTickCommand.php')
+            __DIR__ . '/../published/Jobs/DispatchScheduledTasks.php' => app_path(
+                'Jobs/DispatchScheduledTasks.php'
+            ),
+
+            __DIR__ . '/../published/Console/Commands/TickCommand.php' => app_path(
+                'Console/Commands/LaratasksTickCommand.php'
+            )
         ], 'dispatcher');
     }
 

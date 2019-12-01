@@ -8,7 +8,7 @@ case "$1" in
         service="$2"
         user_id="$3"
 
-        [[ -z ${service} ]] && service="php-fpm"
+        [[ -z ${service} ]] && service="php-cli"
         [[ -z ${user_id} ]] && user_id=$UID
 
         docker-compose exec -u ${user_id} ${service} sh

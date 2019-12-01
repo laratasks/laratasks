@@ -1,7 +1,6 @@
 version: "2"
 services:
   php-cli:
-    env_file: .env
     build:
       context: .
       dockerfile: docker/php-cli/Dockerfile

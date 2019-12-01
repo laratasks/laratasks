@@ -11,7 +11,6 @@ use Laratasks\Laratasks\ExecutableTask;
 use Laratasks\Laratasks\Events\TaskUpdated;
 use Laratasks\Laratasks\Jobs\DispatchScheduledTasks;
 
-
 class HandleTaskUpdate
 {
     /**

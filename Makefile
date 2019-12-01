@@ -5,7 +5,6 @@ all:
 
 up:
 	docker-compose up -d
-	docker-compose exec php-cli chown -R $(UID):$(UID) /composer
 
 down:
 	docker-compose down
@@ -13,6 +12,9 @@ down:
 restart:
 	docker-compose down
 	docker-compose up -d
+
+update: up
+	docker-compose exec -u $(UID) php-cli composer update
 
 stan: phpstan phpcs
 	@echo "Running static analysis tools"
@@ -22,11 +24,14 @@ shell: cmd.sh up
 
 phpstan: up
 	@echo "Running phpstan"
-	docker-compose exec -u $(UID) php-fpm composer run-script phpstan
+	docker-compose exec -u $(UID) php-cli composer run-script phpstan
 
 phpcs: up
 	@echo "Running code sniffer"
-	docker-compose exec -u $(UID) php-fpm composer run-script phpcs
+	docker-compose exec -u $(UID) php-cli composer run-script phpcs
 
 phpcbf: up
-	docker-compose exec -u $(UID) php-fpm composer run-script phpcbf
+	docker-compose exec -u $(UID) php-cli composer run-script phpcbf
+
+fix-composer-permissions: up
+	docker-compose exec php-cli chown -R $(UID):$(UID) /composer

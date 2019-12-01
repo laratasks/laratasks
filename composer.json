@@ -24,7 +24,9 @@
     }
   },
   "scripts": {
-    "phpstan": "phpstan analyse src --level 5"
+    "phpstan": "phpstan analyse src --level 5",
+    "phpcs": "phpcs --standard=PSR1,PSR12 src",
+    "phpcbf": "phpcbf --standard=PSR1,PSR12 src"
   },
   "extra": {
     "laravel": {
