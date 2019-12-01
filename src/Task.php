@@ -3,8 +3,9 @@
 namespace Laratasks\Laratasks;
 
 use Illuminate\Support\Carbon;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 //
 use Laratasks\Laratasks\Console\TickCommand;
 use Laratasks\Laratasks\Exceptions\TaskNotFoundException;
@@ -27,9 +28,6 @@ use Laratasks\Laratasks\Exceptions\TaskNotFoundException;
  *
  * Laravel accessors
  *
- * @property string $taskType
- * @property int $attemptsUsed
- * @property int $maxAttempts
  * @property int $remainingAttempts
  * @property string $status
  * @property bool $succeed
@@ -38,6 +36,7 @@ use Laratasks\Laratasks\Exceptions\TaskNotFoundException;
  * @property bool $allParentsFailed
  * @property bool $someParentsFailed
  * @property bool $someParentsSucceed
+ * @property bool $hasParents
  *
  * @method static Task query()
  * @method Task ready()
@@ -47,7 +46,7 @@ use Laratasks\Laratasks\Exceptions\TaskNotFoundException;
  * @method Task dispatched()
  * @method Task succeed()
  * @method Task failed()
- * @method get()
+ * @method Collection get()
  * @method increment(string $columnName)
  * @method static Task create(array $data)
  */
@@ -157,6 +156,19 @@ class Task extends Model
         'scheduled_to'
     ];
 
+    protected $fillable = [
+        'task_type',
+        'status',
+        'priority',
+        'max_attempts',
+        'scheduled_to',
+        'resource',
+        'parent_strategy',
+        'queue',
+        'parameters',
+        'message'
+    ];
+
     // =========================== //
     // ===    RELATIONSHIPS    === //
     // =========================== //
@@ -243,33 +255,9 @@ class Task extends Model
     /**
      * @return int
      */
-    public function getAttemptsUsedAttribute(): int
-    {
-        return $this->attempts_used;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMaxAttemptsAttribute(): int
-    {
-        return $this->max_attempts;
-    }
-
-    /**
-     * @return int
-     */
     public function getAttemptsRemainingAttribute(): int
     {
         return $this->maxAttempts - $this->attemptsUsed;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTaskTypeAttribute()
-    {
-        return $this->task_type;
     }
 
     /**
@@ -283,9 +271,17 @@ class Task extends Model
     /**
      * @return string
      */
-    public function getParentStrategy(): string
+    public function getParentStrategyAttribute(): string
     {
         return $this->parent_strategy;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHasParentsAttribute(): bool
+    {
+        return count($this->parents) > 0;
     }
 
     /**
@@ -381,9 +377,10 @@ class Task extends Model
 
         $task->update([
             'task_type' => $taskType,
+            'status' => self::STATUS_SCHEDULED,
             'priority' => $taskJob->getPriority() ?? config('laratasks.default_priority'),
             'max_attempts' => $taskJob->getMaxAttempts() ?? config('laratasks.default_max_attempts'),
-            'schedule_to' => $to ?? now(),
+            'scheduled_to' => $to ?? now(),
             'resource' => $taskJob->getResource(),
             'parent_strategy' => $taskJob->getParentStrategy() ?? config('laratasks.default_parent_strategy'),
             'queue' => $taskJob->getQueue() ?? config('laratasks.default_queue'),

@@ -24,6 +24,15 @@ class TaskLog extends Model
     public const INFO = 'info';
     public const DEBUG = 'debug';
 
+    protected $fillable = [
+        'task_id',
+        'task_type',
+        'message',
+        'log_level',
+        'context',
+        'created_at'
+    ];
+
     /**
      * @param string $message
      * @param Task $task
@@ -34,7 +43,7 @@ class TaskLog extends Model
     {
         self::create([
             'task_id' => $task->id,
-            'task_type' => $task->taskType,
+            'task_type' => $task->task_type,
             'message' => $message,
             'log_level' => $logLevel,
             'context' => json_encode($context),

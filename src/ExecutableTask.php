@@ -37,9 +37,9 @@ abstract class ExecutableTask
     protected $queue = null;
 
     /**
-     * @return mixed
+     * @return void
      */
-    abstract public function execute();
+    abstract public function execute(): void;
 
     /**
      * @return array
@@ -47,47 +47,47 @@ abstract class ExecutableTask
     abstract public function setup(): array;
 
     /**
-     * @return mixed
+     * @return void
      */
-    abstract public function onSchedule();
+    abstract public function onSchedule(): void;
 
     /**
-     * @return mixed
+     * @return void
      */
-    abstract public function onDispatch();
+    abstract public function onDispatch(): void;
 
     /**
      * This method is called when dispatched task
      * is evaluated as not ready for execution
      * (method isReady returned false).
-     * @return mixed
+     * @return void
      */
-    abstract public function onPostpone();
+    abstract public function onPostpone(): void;
 
     /**
      * Method called when task status is set
      * to STATUS_UNMET_DEPENDENCIES
-     * @return mixed
+     * @return void
      */
     abstract public function onDiscard();
 
     /**
      * Method called when task status is set
      * to STATUS_RUNNING
-     * @return mixed
+     * @return void
      */
-    abstract public function onStart();
+    abstract public function onStart(): void;
 
     /**
-     * @return mixed
+     * @return void
      */
-    abstract public function onSuccess();
+    abstract public function onSuccess(): void;
 
     /**
      * @param int $remainingAttempts
-     * @return mixed
+     * @return void
      */
-    abstract public function onFailure(int $remainingAttempts);
+    abstract public function onFailure(int $remainingAttempts): void;
 
     /**
      * If this method returns false, task will be skipped.
@@ -199,33 +199,33 @@ abstract class ExecutableTask
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPriority(): int
+    public function getPriority(): ?int
     {
         return $this->priority;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getMaxAttempts(): int
+    public function getMaxAttempts(): ?int
     {
         return $this->maxAttempts;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getParentStrategy(): string
+    public function getParentStrategy(): ?string
     {
         return $this->parentStrategy;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getQueue(): string
+    public function getQueue(): ?string
     {
         return $this->queue;
     }

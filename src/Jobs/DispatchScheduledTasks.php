@@ -8,6 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Collection;
 //
 use Laratasks\Laratasks\Task;
 use Laratasks\Laratasks\ExecutableTask;
@@ -20,11 +21,11 @@ class DispatchScheduledTasks implements ShouldQueue
     use InteractsWithQueue;
 
     /**
-     * @return Task[]
+     * @return Collection
      */
-    protected function getTasks(): array
+    protected function getTasks(): Collection
     {
-        /** @var Task[] $scheduledTasks */
+        /** @var Collection $scheduledTasks */
         $scheduledTasks = Task::query()
             ->scheduled()
             ->prioritized()
@@ -40,7 +41,7 @@ class DispatchScheduledTasks implements ShouldQueue
     {
         foreach ($this->getTasks() as $task) {
             dispatch(new ExecuteTask(
-                ExecutableTask::create($task->taskType, $task)
+                ExecutableTask::create($task->task_type, $task)
             ));
         }
     }

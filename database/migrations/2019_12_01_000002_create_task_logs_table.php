@@ -16,6 +16,7 @@ class CreateTaskLogsTable extends Migration
         Schema::create('task_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('task_id')->nullable();
+            $table->string('task_type');
             $table->text('message');
             $table->string('log_level');
             $table->text('context');

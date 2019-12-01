@@ -27,13 +27,13 @@ class HandleTaskUpdate
 
         TaskLog::debug('Task has been updated', $task);
 
-        if ($task->taskType === null) {
+        if ($task->task_type === null) {
             TaskLog::debug('Task is empty so it will not be processed', $task);
 
             return;
         }
 
-        ExecutableTask::create($task->taskType, $task)->onUpdate();
+        ExecutableTask::create($task->task_type, $task)->onUpdate();
 
         if ($task->succeed) {
             dispatch(new DispatchScheduledTasks());

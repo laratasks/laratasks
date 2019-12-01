@@ -44,7 +44,7 @@ class ExecuteTask implements ShouldQueue
             return;
         }
 
-        if ($this->askParents($task) === false) {
+        if ($task->hasParents && $this->askParents($task) === false) {
             TaskLog::info('Parent results do not allow tasks to be executed, skipping', $task);
             return;
         }
