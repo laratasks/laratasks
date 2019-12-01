@@ -1,11 +1,12 @@
 <?php
 
 // Change this is you use different root namespace
-namespace App\Console\Commands;
+// namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+
 // Change this is you use different root namespace
-use App\Jobs\DispatchScheduledTasks;
+// use App\Jobs\DispatchScheduledTasks;
 
 /**
  * Don't forget to register this command under $commands property

@@ -1,7 +1,7 @@
 <?php
 
 // Change this is you use different root namespace
-namespace App\Jobs;
+// namespace App\Jobs;
 
 use Laratasks\Laratasks\Jobs\DispatchScheduledTasks as Dispatcher;
 
